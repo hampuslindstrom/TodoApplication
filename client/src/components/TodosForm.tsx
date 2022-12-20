@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Col, Form, Input, Row } from 'antd';
 import {PlusCircleFilled} from '@ant-design/icons';
 
-
 interface Todo {
     id: number,
     title: string;
@@ -13,18 +12,31 @@ type TodosFormProps = {
     onFormSubmit: (todo: Todo) => void;
   };
 
-const TodosForm: React.FC<TodosFormProps> = () => {
-    
+  const TodosForm: React.FC<TodosFormProps> = (props) => {
     const [form] = Form.useForm();
+    const { onFormSubmit } = props;
 
-    const onFinish = ({...onFormSubmit}: Todo) => {
+    // const onFinish = ({onFormSubmit}: Todo) => {
 
-        onFormSubmit.title = form.getFieldValue('title');
-        onFormSubmit.completed = false;
-        console.log(form.getFieldValue('title'));
+    //     onFormSubmit({
+    //         title: form.getFieldValue('title'),
+    //         completed: false
+    //     })
+    //     // onFormSubmit.title = form.getFieldValue('title');
+    //     // onFormSubmit.completed = false;
+    //     console.log(form.getFieldValue('title'));
+        
+    //     form.resetFields();
+    // }
 
+    const onFinish = () => {
+        const todo: Todo = {
+            title: form.getFieldValue('title'),
+            completed: false,
+        };
+        onFormSubmit(todo);
         form.resetFields();
-    }
+      }
 
     return (
         <Form
