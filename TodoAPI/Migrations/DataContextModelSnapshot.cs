@@ -8,7 +8,7 @@ using TodoAPI.Models;
 
 namespace TodoAPI.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(TodoContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

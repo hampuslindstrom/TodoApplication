@@ -9,7 +9,7 @@ using TodoAPI.Models;
 
 namespace TodoAPI.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(TodoContext))]
     [Migration("20221219085031_InitialCreate")]
     partial class InitialCreate
     {

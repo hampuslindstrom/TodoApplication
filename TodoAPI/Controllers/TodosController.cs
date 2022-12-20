@@ -10,9 +10,9 @@ namespace TodosApp.Controllers
     [ApiController]
     public class TodosController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly TodoContext _context;
 
-        public TodosController(DataContext context)
+        public TodosController(TodoContext context)
         {
             _context = context;
         }
