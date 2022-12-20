@@ -1,8 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Tooltip, Tag, List, Button, Popconfirm, Switch } from 'antd';
 import {CloseOutlined, CheckOutlined} from '@ant-design/icons';
 
-const Todo = ({todo, onTodoRemoval, onTodoToggle}) => {
+type TodoProps = {
+    todo: {
+        id: number;
+        title: string;
+        completed: boolean;
+    };
+    onTodoRemoval: (todo: { id: number; title: string; completed: boolean; }) => void;
+    onTodoToggle: (todo: { id: number; title: string; completed: boolean; }) => void;
+};
+
+const Todo = ({todo, onTodoRemoval, onTodoToggle}: TodoProps) => {
     return(
         <List.Item
         actions={[

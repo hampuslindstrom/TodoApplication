@@ -4,8 +4,6 @@ import TodosTab from './TodosTab';
 import TodosForm from './TodosForm';
 import { createTodo, deleteTodo, loadTodos, updateTodo} from '../services/todoServices';
 import { Col, Layout, message, Row, Tabs } from 'antd';
-const { TabPane } = Tabs;
-const { Content } = Layout;
 
 interface Todo {
     id: number;
@@ -13,7 +11,10 @@ interface Todo {
     completed: boolean;
 }
 
-const TodosList = () => {
+const { TabPane } = Tabs;
+const { Content } = Layout;
+
+const TodosList: React.FC = () => {
     
     const [refreshing, setRefreshing] = useState(false);
 
@@ -21,10 +22,10 @@ const TodosList = () => {
 
     const [activeTodos, setActiveTodos] = useState([]);
 
-    const [completedTodos, setCompletedTodos] = useState();
+    const [completedTodos, setCompletedTodos] = useState([]);
 
     const handleFormSubmit = async (todo : Todo) => {
-        console.log('Skapa denna todo', todo);
+        console.log("Skapa denna todo", todo);
         await createTodo(todo);
         onRefresh();
         message.success('Din att-göra är tillagd!');
@@ -40,7 +41,7 @@ const TodosList = () => {
         todo.completed = !todo.completed;
         await updateTodo(todo);
         onRefresh();
-        message.info('Todo status updated!');
+        message.info('Uppdaterat!');
     }
 
     const refresh = async () => {
@@ -54,8 +55,6 @@ const TodosList = () => {
 
         }
             
-    
-
     const onRefresh = useCallback( async () => {
         setRefreshing(true);
         let data = await loadTodos();
