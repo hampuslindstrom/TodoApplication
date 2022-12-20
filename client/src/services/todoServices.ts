@@ -1,42 +1,31 @@
-const baseUrl = 'localhost:5000/Todos';
+import axios from 'axios';
+
+// const baseUrl = 'http://localhost:5000/api/Todos';
+const baseUrl = `${process.env.REACT_APP_API_URL}/api/Todos`;
 
 export const loadTodos = () => {
-    return fetch(baseUrl).then((res) => res.json());
+  return axios.get(baseUrl).then(response => response.data);
 }
 
-export const getTodo = (id : number) => {
-    return fetch(`${baseUrl}/${id}`).then((res) => res.json());
+export const getTodo = (id: number) => {
+  return axios.get(`${baseUrl}/${id}`).then(response => response.data);
 }
 
 export const createTodo = (todo: { title: string; completed: boolean; }) => {
-    return fetch(baseUrl, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            title: todo.title,
-            completed: todo.completed
-        }),
-    }).then((res) => res.json());
+  return axios.post(baseUrl, {
+    title: todo.title,
+    completed: todo.completed
+  }).then(response => response.data);
 }
 
 export const updateTodo = (todo: { id: number; title: string; completed: boolean; }) => {
-    return fetch(`${baseUrl}/${todo.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            id: todo.id,
-            title: todo.title,
-            completed: todo.completed
-        }),
-    }).then((res) => res.json());
+  return axios.put(`${baseUrl}/${todo.id}`, {
+    id: todo.id,
+    title: todo.title,
+    completed: todo.completed
+  }).then(response => response.data);
 }
 
 export const deleteTodo = (id: number) => {
-    return fetch(`${baseUrl}/${id}`, {
-        method: "DELETE",
-    }).then(res => res.json());
+  return axios.delete(`${baseUrl}/${id}`).then(response => response.data);
 }
