@@ -24,7 +24,7 @@ builder.Services.AddCors(options =>
 
 // Database Connection String
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<DataContext> (opt =>
+builder.Services.AddDbContext<TodoContext> (opt =>
 {
     opt.UseSqlite(connectionString);
 });
