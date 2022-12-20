@@ -11,7 +11,6 @@ interface Todo {
 
 type TodosFormProps = {
     onFormSubmit: (todo: Todo) => void;
-    // Other props here...
   };
 
 const TodosForm: React.FC<TodosFormProps> = () => {
