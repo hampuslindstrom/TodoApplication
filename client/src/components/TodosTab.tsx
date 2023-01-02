@@ -1,16 +1,7 @@
 import React, {useEffect} from 'react';
 import { List } from 'antd';
 import TodoItem from './TodoItem';
-
-type TodosTabProps = {
-    todos: {
-        id: number;
-        title: string;
-        completed: boolean;
-    }[];
-    onTodoRemoval: (todo: { id: number; title: string; completed: boolean; }) => void;
-    onTodoToggle: (todo: { id: number; title: string; completed: boolean; }) => void;
-};
+import { TodosTabProps } from './models/TodoTabProps';
 
 const TodosTab = ({todos, onTodoRemoval, onTodoToggle}: TodosTabProps) => {
     return (
