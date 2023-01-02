@@ -4,12 +4,13 @@ import TodosTab from './TodosTab';
 import TodosForm from './TodosForm';
 import { createTodo, deleteTodo, loadTodos, updateTodo} from '../services/todoServices';
 import { Col, Layout, message, Row, Tabs } from 'antd';
+import { Todo } from './models/Todo';
 
-interface Todo {
-    id: number;
-    title: string;
-    completed: boolean;
-}
+// interface Todo {
+//     id: number;
+//     title: string;
+//     completed: boolean;
+// }
 
 const { TabPane } = Tabs;
 const { Content } = Layout;
@@ -31,10 +32,18 @@ const TodosList: React.FC = () => {
         message.success('Din att-göra är tillagd!');
     }
 
+    // const handleRemoveTodo = async (todo : Todo) => {
+    //     await deleteTodo(todo.id);
+    //     onRefresh();
+    //     message.warning('Du har tagit bort det du behövde göra');
+    // }
+
     const handleRemoveTodo = async (todo : Todo) => {
-        await deleteTodo(todo.id);
-        onRefresh();
-        message.warning('Du har tagit bort det du behövde göra');
+        if (typeof todo.id !== 'undefined' && 'id' in todo) {
+            await deleteTodo(todo.id);
+            onRefresh();
+            message.warning('Du har tagit bort det du behövde göra');
+          }
     }
 
     const handleToggleTodoStatus = async (todo : Todo) => {
