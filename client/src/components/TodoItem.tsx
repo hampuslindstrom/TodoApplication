@@ -1,13 +1,10 @@
 import React from 'react';
 import { Tooltip, Tag, List, Button, Popconfirm, Switch } from 'antd';
-import {CloseOutlined, CheckOutlined, EditOutlined} from '@ant-design/icons';
+import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import { TodoProps } from './models/TodoProps';
+import TodoEdit from './TodoEdit';
 
 const Todo = ({todo, onTodoRemoval, onTodoToggle}: TodoProps) => {
-
-    const TodoEdit = () => {
-        return console.log(todo.id);
-    }
 
     return(
         <List.Item
@@ -22,9 +19,9 @@ const Todo = ({todo, onTodoRemoval, onTodoToggle}: TodoProps) => {
                     />
 
             </Tooltip>,
-            <Button onClick={TodoEdit}>
-                <EditOutlined/>
-            </Button>,
+
+            <TodoEdit id={todo.id} title={todo.title} completed={todo.completed} />,
+
             <Popconfirm
             title={'Vill du verkligen radera?'}
             onConfirm={() => {
