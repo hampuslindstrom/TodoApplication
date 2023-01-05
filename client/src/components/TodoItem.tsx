@@ -5,7 +5,6 @@ import { TodoProps } from './models/TodoProps';
 import TodoEdit from './TodoEdit';
 
 const Todo = ({todo, onTodoRemoval, onTodoToggle}: TodoProps) => {
-
     return(
         <List.Item
         actions={[
@@ -17,11 +16,8 @@ const Todo = ({todo, onTodoRemoval, onTodoToggle}: TodoProps) => {
                         onChange={() => onTodoToggle(todo)}
                         defaultChecked={todo.completed}
                     />
-
             </Tooltip>,
-
             <TodoEdit id={todo.id} title={todo.title} completed={todo.completed} />,
-
             <Popconfirm
             title={'Vill du verkligen radera?'}
             onConfirm={() => {
