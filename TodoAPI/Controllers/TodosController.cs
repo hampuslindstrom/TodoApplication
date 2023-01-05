@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TodoAPI.Models;
+using Entity.Interfaces;
+using ApplicationCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,25 +10,24 @@ namespace TodosApp.Controllers
     [ApiController]
     public class TodosController : ControllerBase
     {
-        private readonly TodoContext _context;
+        private readonly ITodoRepository _todoRepository;
 
-        public TodosController(TodoContext context)
+        public TodosController(ITodoRepository todoRepository)
         {
-            _context = context;
+            _todoRepository = todoRepository;
         }
 
-        // GET: api/<TodosController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Todo>>> GetTodos()
         {
-            return await _context.Todos.ToListAsync();
+            var todos = await _todoRepository.GetTodos();
+            return Ok(todos);
         }
 
-        // GET api/<TodosController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Todo>> GetTodo(int id)
         {
-            var todo = await _context.Todos.FindAsync(id);
+            var todo = await _todoRepository.GetTodo(id);
             if (todo == null)
             {
                 return NotFound();
@@ -37,64 +36,35 @@ namespace TodosApp.Controllers
             return todo;
         }
 
-        // POST api/<TodosController>
         [HttpPost]
         public async Task<ActionResult<Todo>> PostTodo(Todo todo)
         {
-            _context.Todos.Add(todo);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTodo", new { id = todo.Id }, todo);
+            var addedTodo = await _todoRepository.AddTodo(todo);
+            return CreatedAtAction("GetTodo", new { id = addedTodo.Id }, addedTodo);
         }
 
-        // PUT api/<TodosController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult<Todo>> PutTodo(int id, Todo todo)
         {
-            if (id != todo.Id)
+            var updatedTodo = await _todoRepository.UpdateTodo(id, todo);
+            if (updatedTodo == null)
             {
                 return BadRequest();
             }
 
-            _context.Entry(todo).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TodoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return todo;
+            return updatedTodo;
         }
 
-        // DELETE api/<TodosController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodo(int id)
         {
-            var todo = await _context.Todos.FindAsync(id);
-            if (todo == null)
+            var deletedTodo = await _todoRepository.DeleteTodo(id);
+            if (deletedTodo == null)
             {
                 return NotFound();
             }
 
-            _context.Todos.Remove(todo);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool TodoExists(int id)
-        {
-            return _context.Todos.Any(e => e.Id == id);
         }
     }
 }

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using TodoAPI.Models;
+using Infrastructure;
+using Entity.Interfaces;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(MyAllowSpecificOrigins,
+    options.AddPolicy("CorsPolicy",
                           policy =>
                           {
                               policy.WithOrigins("http://localhost:3000")
@@ -24,10 +24,12 @@ builder.Services.AddCors(options =>
 
 // Database Connection String
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<TodoContext> (opt =>
+builder.Services.AddDbContext<TodoContext>(opt =>
 {
     opt.UseSqlite(connectionString);
 });
+
+builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 
 var app = builder.Build();
 
@@ -40,7 +42,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
