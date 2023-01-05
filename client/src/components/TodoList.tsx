@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import './TodosList.css';
-import TodosTab from './TodosTab';
-import TodosForm from './TodosForm';
+import './TodoList.css';
+import TodoTab from './TodoTab';
+import TodosForm from './TodoForm';
 import { createTodo, deleteTodo, loadTodos, updateTodo} from '../services/todoServices';
 import { Col, Layout, message, Row, Tabs } from 'antd';
 import { Todo } from './models/Todo';
@@ -16,7 +16,6 @@ const TodosList: React.FC = () => {
     const [completedTodos, setCompletedTodos] = useState([]);
 
     const handleFormSubmit = async (todo : Todo) => {
-        console.log("Skapa denna todo", todo);
         await createTodo(todo);
         onRefresh();
         message.success('Din att-göra är tillagd!');
@@ -38,15 +37,13 @@ const TodosList: React.FC = () => {
     }
 
     const refresh = async () => {
-
         await loadTodos()
         .then(json => {
             setTodos(json);
             setActiveTodos(json.filter((todo : Todo) => todo.completed === false));
             setCompletedTodos(json.filter((todo : Todo) => todo.completed === true));
         });
-
-        }
+    }
             
     const onRefresh = useCallback( async () => {
         setRefreshing(true);
@@ -55,7 +52,6 @@ const TodosList: React.FC = () => {
         setActiveTodos(data.filter((todo : Todo) => todo.completed === false));
         setCompletedTodos(data.filter((todo : Todo) => todo.completed === true));
         setRefreshing(false);
-        console.log('Refresh', refreshing);
     }, [refreshing]);
 
     useEffect(() => {
@@ -73,13 +69,13 @@ const TodosList: React.FC = () => {
                             <br />
                             <Tabs defaultActiveKey="all">
                                 <TabPane tab="Alla" key="all">
-                                    <TodosTab todos={todos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
+                                    <TodoTab todos={todos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
                                 </TabPane>
                                 <TabPane tab="Pågående" key="active">
-                                    <TodosTab todos={activeTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
+                                    <TodoTab todos={activeTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
                                 </TabPane>
                                 <TabPane tab="Färdiga" key="complete">
-                                    <TodosTab todos={completedTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
+                                    <TodoTab todos={completedTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
                                 </TabPane>
                             </Tabs>
                         </Col>
