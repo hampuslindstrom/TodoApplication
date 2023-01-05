@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button, Modal, Form } from 'antd';
+import { Input, Button, Modal, Form, message } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { editTodo } from '../services/todoServices';
 import { TodoEditProps } from "./models/TodoEditProps";
@@ -19,8 +19,13 @@ const TodoEdit = (todo : TodoEditProps) => {
             title: form.getFieldValue('title'),
             completed: todo.completed,
         };
-        await editTodo(editedTodo);
-        window.location.reload();
+        if (editedTodo.title != null) {
+            await editTodo(editedTodo);
+            window.location.reload();
+        }
+        else {
+            message.warning('Din todo har inte uppdaterats.');
+        }
     };
 
     const handleCancel = () => {
