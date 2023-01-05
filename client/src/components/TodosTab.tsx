@@ -21,7 +21,6 @@ const TodosTab = ({todos, onTodoRemoval, onTodoToggle}: TodosTabProps) => {
                 pageSize: 10,
             }}
         />
-
         </>
     )
 }

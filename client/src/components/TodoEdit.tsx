@@ -5,7 +5,6 @@ import { editTodo } from '../services/todoServices';
 import { TodoEditProps } from "./models/TodoEditProps";
 
 const TodoEdit = (todo : TodoEditProps) => {
-
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
 

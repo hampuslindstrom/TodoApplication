@@ -10,13 +10,9 @@ const { TabPane } = Tabs;
 const { Content } = Layout;
 
 const TodosList: React.FC = () => {
-    
     const [refreshing, setRefreshing] = useState(false);
-
     const [todos, setTodos] = useState([]);
-
     const [activeTodos, setActiveTodos] = useState([]);
-
     const [completedTodos, setCompletedTodos] = useState([]);
 
     const handleFormSubmit = async (todo : Todo) => {
@@ -79,16 +75,11 @@ const TodosList: React.FC = () => {
                                 <TabPane tab="Alla" key="all">
                                     <TodosTab todos={todos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
                                 </TabPane>
-
                                 <TabPane tab="Pågående" key="active">
-
                                     <TodosTab todos={activeTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
-
                                 </TabPane>
                                 <TabPane tab="Färdiga" key="complete">
-
                                     <TodosTab todos={completedTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
-
                                 </TabPane>
                             </Tabs>
                         </Col>
