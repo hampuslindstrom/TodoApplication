@@ -27,14 +27,14 @@ import { TodosFormProps } from './models/TodoFormProps';
                 <Col xs={24} sm={24} md={17} lg={19} xl={20}>
                     <Form.Item
                     name={'title'}
-                    rules={[{required: true, message: 'Detta fält måste fyllas i'}]}>
-                        <Input placeholder="Vad behöver du ta tag i?" />
+                    rules={[{required: true, message: 'This field is required'}]}>
+                        <Input placeholder="What do you need to do?" />
                     </Form.Item>
                 </Col>
                 <Col xs={24} sm={24} md={7} lg={5} xl={4}>
                     <Button type="primary" htmlType="submit" block>
                         <PlusCircleFilled />
-                        Lägg till
+                        Add Todo
                     </Button>
                 </Col>
             </Row>

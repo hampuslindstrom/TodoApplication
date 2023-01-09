@@ -24,7 +24,7 @@ const TodoEdit = (todo : TodoEditProps) => {
             window.location.reload();
         }
         else {
-            message.warning('Din todo har inte uppdaterats.');
+            message.warning('Your Todo has not been updated.');
         }
     };
 
@@ -37,7 +37,7 @@ const TodoEdit = (todo : TodoEditProps) => {
         <Button onClick={showModal}>
             <EditOutlined/>
         </Button>
-        <Modal title="Redigera" open={isModalOpen} onOk={(e) => handleOk(e, todo)} onCancel={handleCancel}>
+        <Modal title="Edit" open={isModalOpen} onOk={(e) => handleOk(e, todo)} onCancel={handleCancel}>
         <Form
         form={form}>
             <Form.Item name={'title'}>

@@ -18,14 +18,14 @@ const TodosList: React.FC = () => {
     const handleFormSubmit = async (todo : Todo) => {
         await createTodo(todo);
         onRefresh();
-        message.success('Din att-göra är tillagd!');
+        message.success('Your Todo has been added!');
     }
     
     const handleRemoveTodo = async (todo : Todo) => {
         if (typeof todo.id !== 'undefined' && 'id' in todo) {
             await deleteTodo(todo.id);
             onRefresh();
-            message.warning('Du har tagit bort det du behövde göra');
+            message.warning('You have deleted your todo.');
           }
     }
 
@@ -33,7 +33,7 @@ const TodosList: React.FC = () => {
         todo.completed = !todo.completed;
         await updateTodo(todo);
         onRefresh();
-        message.info('Uppdaterat!');
+        message.info('Updated!');
     }
 
     const refresh = async () => {
@@ -64,17 +64,17 @@ const TodosList: React.FC = () => {
                 <div className="todolist">
                     <Row>
                         <Col span={15} offset={5}>
-                            <h1>Att-göra-listan</h1>
+                            <h1>Todo List</h1>
                             <TodosForm onFormSubmit={handleFormSubmit}/>
                             <br />
                             <Tabs defaultActiveKey="all">
-                                <TabPane tab="Alla" key="all">
+                                <TabPane tab="All" key="all">
                                     <TodoTab todos={todos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
                                 </TabPane>
-                                <TabPane tab="Pågående" key="active">
+                                <TabPane tab="In Progress" key="active">
                                     <TodoTab todos={activeTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
                                 </TabPane>
-                                <TabPane tab="Färdiga" key="complete">
+                                <TabPane tab="Completed" key="complete">
                                     <TodoTab todos={completedTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
                                 </TabPane>
                             </Tabs>
