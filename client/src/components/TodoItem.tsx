@@ -9,7 +9,7 @@ const Todo = ({todo, onTodoRemoval, onTodoToggle}: TodoProps) => {
         <List.Item
         actions={[
             <Tooltip
-                title={todo.completed ? 'Markera som ej utförd' : 'Markera som färdig'}>
+                title={todo.completed ? 'Mark as not completed' : 'Mark as completed'}>
                     <Switch 
                         checkedChildren={<CheckOutlined/>}
                         unCheckedChildren={<CloseOutlined />}
@@ -19,7 +19,7 @@ const Todo = ({todo, onTodoRemoval, onTodoToggle}: TodoProps) => {
             </Tooltip>,
             <TodoEdit id={todo.id} title={todo.title} completed={todo.completed} />,
             <Popconfirm
-            title={'Vill du verkligen radera?'}
+            title={'Do you really want to delete?'}
             onConfirm={() => {
                 onTodoRemoval(todo);
             }}>
