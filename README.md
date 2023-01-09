@@ -7,3 +7,4 @@ Webapplication where you can:
 # Build
 * ASP .NET Core | BACKEND |
 * ReactJS, TypeScript | FRONTEND |
+* SQLite | Database
