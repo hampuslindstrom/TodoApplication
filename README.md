@@ -8,4 +8,3 @@ Webapplication where you can:
 * ASP .NET Core | BACKEND |
 * ReactJS, TypeScript | FRONTEND |
 * SQLite | Database
-* MSTests / Moq
